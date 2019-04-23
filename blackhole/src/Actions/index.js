@@ -8,6 +8,8 @@ REGISTER_SUCCESS = 'REGISTER_SUCCESS',
 REGISTER_FAILURE = 'REGISTER_FAILURE',
 
 LOGOUT = 'LOGOUT',
+LOGOUT_SUCCESS = 'LOGOUT_SUCCESS',
+LOGOUT_FAILURE = 'LOGOUT FAILURE',
 //CREATE
 ADD_POST = 'ADD_POST',
 ADD_SUCCESS = 'ADD_SUCCESS',
@@ -29,6 +31,28 @@ DELETE_FAILURE = 'DELETE_FAILURE';
 
 //export const register, login, logout, fetch_posts, add_post, update_post, delete_post
 // All actions, use thunk to update /render /create/ delete/, run through dispatch .... ie..
+const URL = "https://build-week-blackhole.herokuapp.com/api";
+
+
+export const register = credentials => dispatch => {
+   axios
+   .post(`${URL}/register`, credentials)
+   .then( response => {
+       localStorage.setItem('user', JSON.stringify(credentials))
+       dispatch({
+           type: REGISTER,
+           payload: response.data
+       });
+   });
+}
+
+
+
+
+
+
+
+
 
 export const addPost = post => dispatch => {
     dispatch({ type: ADD_POST});
@@ -45,3 +69,4 @@ export const addPost = post => dispatch => {
             type: ADD_FAILURE, payload: err.data});
         })
 };
+
